@@ -1,28 +1,29 @@
-name: Build and Test
+# Название нашего ci 
+name: CI
 
+# Задает условия для запуска CI процесса. 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - '*'
 
+# Определяет список заданий, которые должны выполняться в рамках CI процесса
 jobs:
+  # Задает имя задания
   build:
-    runs-on: ubuntu-latest
-
+    # Определяет операционную систему, на которой будет выполняться CI процесс
+    runs-on: [windows-latest]
+    # Определяет список шагов, которые нужно выполнить в рамках задания
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '3.1.x'  # или любая другая версия .NET Core
-
-      - name: Build
-        run: dotnet build --configuration Release
-
-      - name: Test
-        run: dotnet test --configuration Release --no-build
+    # Клонирование репозитория в рабочую директорию CI процесса
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    # Настройка MSBuild
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+    # Установка пакета NuGet
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.2.0
+    # Сборка решения
+    - name: Build the solution
+      uses: microsoft/setup-msbuild@v1.3.1
