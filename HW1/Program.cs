@@ -106,4 +106,5 @@ class Program
         // Выводим текущий баланс
         Console.WriteLine($"Current balance: {account.GetBalance()}");
     }
+    // Тест файла build.yml
 }
